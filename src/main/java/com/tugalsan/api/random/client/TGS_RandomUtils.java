@@ -1,12 +1,13 @@
 package com.tugalsan.api.random.client;
 
 import com.tugalsan.api.shape.client.*;
+import com.tugalsan.api.unsafe.client.*;
 import java.util.*;
 
-public class TGS_RandomUtils {//TGS_LOREM IPSUM USES
+public class TGS_RandomUtils {
 
     public static String getUUIDType5(String seed) {
-        throw new RuntimeException(TGS_RandomUtils.class.getSimpleName() + ".getUUIDType5 not implemented!");
+        return TGS_UnSafe.catchMeIfUCanReturns(TGS_RandomUtils.class.getSimpleName(), "getUUIDType5", "not implemented");
     }
 
     public native static String nextUUIDType4() /*-{
@@ -19,7 +20,7 @@ public class TGS_RandomUtils {//TGS_LOREM IPSUM USES
 }-*/;
 
     public static final Random driver() {
-        if (driver == null){
+        if (driver == null) {
             driver = new Random();
         }
         return driver;

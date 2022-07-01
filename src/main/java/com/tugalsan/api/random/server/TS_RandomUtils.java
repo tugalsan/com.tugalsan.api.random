@@ -2,8 +2,8 @@ package com.tugalsan.api.random.server;
 
 import com.tugalsan.api.hex.client.TGS_HexUtils;
 import com.tugalsan.api.random.client.*;
-import static com.tugalsan.api.random.client.TGS_RandomUtils.driver;
 import com.tugalsan.api.shape.client.*;
+import com.tugalsan.api.unsafe.client.*;
 import java.security.MessageDigest;
 import java.util.*;
 import java.util.concurrent.*;
@@ -20,13 +20,11 @@ public class TS_RandomUtils {
     }
 
     public static String nextUUIDType4() {
-        try {
+        return TGS_UnSafe.compile(() -> {
             var salt = MessageDigest.getInstance("SHA-256");
             salt.update(UUID.randomUUID().toString().getBytes("UTF-8"));
             return TGS_HexUtils.toHex(salt.digest());
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
+        });
     }
 
     public static final Random driver() {

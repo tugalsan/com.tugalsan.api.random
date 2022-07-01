@@ -1,5 +1,6 @@
 package com.tugalsan.api.random.server;
 
+import com.tugalsan.api.unsafe.client.*;
 import java.nio.charset.Charset;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -42,20 +43,19 @@ public class TS_UUIDType5Utils {
     }
 
     private static UUID nameUUIDFromNamespaceAndBytes(UUID namespace, byte[] name) {
-        MessageDigest md;
-        try {
-            md = MessageDigest.getInstance("SHA-1");
-        } catch (NoSuchAlgorithmException nsae) {
-            throw new InternalError("SHA-1 not supported");
-        }
-        md.update(toBytes(Objects.requireNonNull(namespace, "namespace is null")));
-        md.update(Objects.requireNonNull(name, "name is null"));
-        var sha1Bytes = md.digest();
-        sha1Bytes[6] &= 0x0f;//clear version        
-        sha1Bytes[6] |= 0x50;// set to version 5    
-        sha1Bytes[8] &= 0x3f;// clear variant       
-        sha1Bytes[8] |= 0x80;// set to IETF variant 
-        return fromBytes(sha1Bytes);
+        return TGS_UnSafe.compile(() -> {
+            var md = MessageDigest.getInstance("SHA-1");
+            md.update(toBytes(Objects.requireNonNull(namespace, "namespace is null")));
+            md.update(Objects.requireNonNull(name, "name is null"));
+            var sha1Bytes = md.digest();
+            sha1Bytes[6] &= 0x0f;//clear version        
+            sha1Bytes[6] |= 0x50;// set to version 5    
+            sha1Bytes[8] &= 0x3f;// clear variant       
+            sha1Bytes[8] |= 0x80;// set to IETF variant 
+            return fromBytes(sha1Bytes);
+        }, e -> {
+            return TGS_UnSafe.catchMeIfUCanReturns(TS_UUIDType5Utils.class.getSimpleName(), "nameUUIDFromNamespaceAndBytes", "SHA-1 not supported");
+        });
     }
 
     private static UUID fromBytes(byte[] data) {
