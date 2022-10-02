@@ -1,9 +1,8 @@
-package com.tugalsan.api.random.server;
+package com.tugalsan.api.random.server.core;
 
 import com.tugalsan.api.unsafe.client.*;
 import java.nio.charset.Charset;
 import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 import java.util.Objects;
 import java.util.UUID;
 

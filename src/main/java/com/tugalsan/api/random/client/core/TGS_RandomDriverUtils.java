@@ -1,4 +1,4 @@
-package com.tugalsan.api.random.client;
+package com.tugalsan.api.random.client.core;
 
 import com.tugalsan.api.shape.client.*;
 import java.util.*;

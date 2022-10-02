@@ -1,7 +1,8 @@
 package com.tugalsan.api.random.server;
 
+import com.tugalsan.api.random.server.core.TS_UUIDType5Utils;
+import com.tugalsan.api.random.client.core.TGS_RandomDriverUtils;
 import com.tugalsan.api.hex.client.TGS_HexUtils;
-import com.tugalsan.api.random.client.*;
 import com.tugalsan.api.shape.client.*;
 import com.tugalsan.api.unsafe.client.*;
 import java.security.MessageDigest;
@@ -10,11 +11,6 @@ import java.util.concurrent.*;
 
 public class TS_RandomUtils {
 
-//    public static void main(String... args) {
-//        System.out.println(nextUUIDType4());
-//        System.out.println(nextUUIDType4());
-//        System.out.println(getUUIDType5(TS_RandomUtils.class.getName() + TS_RandomUtils.class.getName()));
-//    }
     public static String getUUIDType5(String seed) {
         return TS_UUIDType5Utils.execute(seed).toString();
     }
@@ -27,7 +23,7 @@ public class TS_RandomUtils {
         });
     }
 
-    public static final Random driver() {
+    public static final Random driver() {//THREAD SAFE
         return ThreadLocalRandom.current();
     }
 
