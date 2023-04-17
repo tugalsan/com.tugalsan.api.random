@@ -12,11 +12,11 @@ import java.util.concurrent.*;
 public class TS_RandomUtils {
 
     public static String getUUIDType5(String seed) {
-        return TS_UUIDType5Utils.execute(seed).toString();
+        return TS_UUIDType5Utils.run(seed).toString();
     }
 
     public static String nextUUIDType4() {
-        return TGS_UnSafe.compile(() -> {
+        return TGS_UnSafe.call(() -> {
             var salt = MessageDigest.getInstance("SHA-256");
             salt.update(UUID.randomUUID().toString().getBytes("UTF-8"));
             return TGS_HexUtils.toHex(salt.digest());

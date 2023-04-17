@@ -12,10 +12,10 @@ public class TS_UUIDType5Utils {
 //        System.out.println(TS_UUIDType5Utils.nameUUIDFromNamespaceAndString(NAMESPACE_URL, "google.com"));
 //        System.out.println(TS_UUIDType5Utils.nameUUIDFromNamespaceAndString(NAMESPACE_URL, "google.com"));
 //        System.out.println(TS_UUIDType5Utils.nameUUIDFromNamespaceAndString(NAMESPACE_URL, "google.com"));
-//        var a = execute("Melih Köse 2");
+//        var a = run("Melih Köse 2");
 //        System.out.println(a);
 //    }
-    public static UUID execute(CharSequence name) {
+    public static UUID run(CharSequence name) {
         return nameUUIDFromNamespaceAndString(getNAMESPACE_URL(), name);
     }
 
@@ -42,7 +42,7 @@ public class TS_UUIDType5Utils {
     }
 
     private static UUID nameUUIDFromNamespaceAndBytes(UUID namespace, byte[] name) {
-        return TGS_UnSafe.compile(() -> {
+        return TGS_UnSafe.call(() -> {
             var md = MessageDigest.getInstance("SHA-1");
             md.update(toBytes(Objects.requireNonNull(namespace, "namespace is null")));
             md.update(Objects.requireNonNull(name, "name is null"));
@@ -53,7 +53,7 @@ public class TS_UUIDType5Utils {
             sha1Bytes[8] |= 0x80;// set to IETF variant 
             return fromBytes(sha1Bytes);
         }, e -> {
-            return TGS_UnSafe.catchMeIfUCanReturns(TS_UUIDType5Utils.class.getSimpleName(), "nameUUIDFromNamespaceAndBytes", "SHA-1 not supported");
+            return TGS_UnSafe.thrwReturns(TS_UUIDType5Utils.class.getSimpleName(), "nameUUIDFromNamespaceAndBytes", "SHA-1 not supported");
         });
     }
 

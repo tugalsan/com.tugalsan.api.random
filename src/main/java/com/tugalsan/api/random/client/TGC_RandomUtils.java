@@ -6,7 +6,7 @@ public class TGC_RandomUtils {
 
     @Deprecated //NOT IMPLEMENTED
     public static String getUUIDType5(String seed) {
-        return TGS_UnSafe.catchMeIfUCanReturns(TGC_RandomUtils.class.getSimpleName(), "getUUIDType5", "not implemented");
+        return TGS_UnSafe.thrwReturns(TGC_RandomUtils.class.getSimpleName(), "getUUIDType5", "not implemented");
     }
 
     public native static String nextUUIDType4() /*-{
