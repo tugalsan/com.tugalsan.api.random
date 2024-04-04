@@ -4,8 +4,10 @@ import com.tugalsan.api.random.server.core.TS_UUIDType5Utils;
 import com.tugalsan.api.random.client.core.TGS_RandomDriverUtils;
 import com.tugalsan.api.hex.client.TGS_HexUtils;
 import com.tugalsan.api.shape.client.*;
-import com.tugalsan.api.unsafe.client.*;
+import com.tugalsan.api.union.client.TGS_Union;
+import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.*;
 import java.util.concurrent.*;
 
@@ -15,12 +17,14 @@ public class TS_RandomUtils {
         return TS_UUIDType5Utils.run(seed).toString();
     }
 
-    public static String nextUUIDType4() {
-        return TGS_UnSafe.call(() -> {
+    public static TGS_Union<String> nextUUIDType4() {
+        try {
             var salt = MessageDigest.getInstance("SHA-256");
             salt.update(UUID.randomUUID().toString().getBytes("UTF-8"));
-            return TGS_HexUtils.toHex(salt.digest());
-        });
+            return TGS_Union.of(TGS_HexUtils.toHex(salt.digest()));
+        } catch (NoSuchAlgorithmException | UnsupportedEncodingException ex) {
+            return TGS_Union.ofThrowable(ex);
+        }
     }
 
     public static final Random driver() {//THREAD SAFE
