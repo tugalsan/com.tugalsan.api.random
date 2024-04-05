@@ -1,16 +1,10 @@
 package com.tugalsan.api.random.client;
 
-import com.tugalsan.api.union.client.TGS_UnionUtils;
-
 public class TGC_RandomUtils {
 
     @Deprecated //NOT IMPLEMENTED
     public static String getUUIDType5(String seed) {
-        return TGS_UnionUtils.throwAsRuntimeException(
-                TGC_RandomUtils.class.getSimpleName(), 
-                "getUUIDType5", 
-                "not implemented"
-        );
+        throw new UnsupportedOperationException("not implemented");
     }
 
     public native static String nextUUIDType4() /*-{
