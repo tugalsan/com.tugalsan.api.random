@@ -23,7 +23,7 @@ public class TS_RandomUtils {
             salt.update(UUID.randomUUID().toString().getBytes("UTF-8"));
             return TGS_Union.of(TGS_HexUtils.toHex(salt.digest()));
         } catch (NoSuchAlgorithmException | UnsupportedEncodingException ex) {
-            return TGS_Union.ofThrowable(ex);
+            return TGS_Union.ofExcuse(ex);
         }
     }
 

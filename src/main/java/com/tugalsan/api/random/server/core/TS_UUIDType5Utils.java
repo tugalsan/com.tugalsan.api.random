@@ -50,7 +50,7 @@ public class TS_UUIDType5Utils {
             sha1Bytes[8] |= 0x80;// set to IETF variant 
             return TGS_Union.of(fromBytes(sha1Bytes));
         } catch (NoSuchAlgorithmException ex) {
-            return TGS_Union.ofThrowable(ex);
+            return TGS_Union.ofExcuse(ex);
         }
     }
 
