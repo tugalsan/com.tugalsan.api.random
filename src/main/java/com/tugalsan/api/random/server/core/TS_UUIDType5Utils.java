@@ -1,6 +1,6 @@
 package com.tugalsan.api.random.server.core;
 
-import com.tugalsan.api.union.client.TGS_Union;
+import com.tugalsan.api.union.client.TGS_UnionExcuse;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -16,7 +16,7 @@ public class TS_UUIDType5Utils {
 //        var a = run("AA BB 2");
 //        System.out.println(a);
 //    }
-    public static TGS_Union<UUID> run(CharSequence name) {
+    public static TGS_UnionExcuse<UUID> run(CharSequence name) {
         return nameUUIDFromNamespaceAndString(getNAMESPACE_URL(), name);
     }
 
@@ -34,11 +34,11 @@ public class TS_UUIDType5Utils {
 //    private static final UUID getNAMESPACE_X500() {
 //        return UUID.fromString("6ba7b814-9dad-11d1-80b4-00c04fd430c8");
 //    }
-    private static TGS_Union<UUID> nameUUIDFromNamespaceAndString(UUID namespace, CharSequence name) {
+    private static TGS_UnionExcuse<UUID> nameUUIDFromNamespaceAndString(UUID namespace, CharSequence name) {
         return nameUUIDFromNamespaceAndBytes(namespace, Objects.requireNonNull(name.toString(), "name == null").getBytes(StandardCharsets.UTF_8));
     }
 
-    private static TGS_Union<UUID> nameUUIDFromNamespaceAndBytes(UUID namespace, byte[] name) {
+    private static TGS_UnionExcuse<UUID> nameUUIDFromNamespaceAndBytes(UUID namespace, byte[] name) {
         try {
             var md = MessageDigest.getInstance("SHA-1");
             md.update(toBytes(Objects.requireNonNull(namespace, "namespace is null")));
@@ -48,9 +48,9 @@ public class TS_UUIDType5Utils {
             sha1Bytes[6] |= 0x50;// set to version 5
             sha1Bytes[8] &= 0x3f;// clear variant
             sha1Bytes[8] |= 0x80;// set to IETF variant 
-            return TGS_Union.of(fromBytes(sha1Bytes));
+            return TGS_UnionExcuse.of(fromBytes(sha1Bytes));
         } catch (NoSuchAlgorithmException ex) {
-            return TGS_Union.ofExcuse(ex);
+            return TGS_UnionExcuse.ofExcuse(ex);
         }
     }
 
