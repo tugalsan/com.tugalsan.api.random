@@ -51,7 +51,7 @@ public class TS_UUIDType5Utils {
             sha1Bytes[8] |= 0x80;// set to IETF variant 
             return fromBytes(sha1Bytes);
         }, e -> {
-            return TGS_UnSafe.thrwReturns(TS_UUIDType5Utils.class.getSimpleName(), "nameUUIDFromNamespaceAndBytes", "SHA-1 not supported");
+            return TGS_UnSafe.thrw(TS_UUIDType5Utils.class.getSimpleName(), "nameUUIDFromNamespaceAndBytes", "SHA-1 not supported");
         });
     }
 
