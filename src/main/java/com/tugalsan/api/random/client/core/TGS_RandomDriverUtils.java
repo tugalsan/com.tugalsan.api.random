@@ -33,6 +33,10 @@ public class TGS_RandomDriverUtils {
         return driver.nextFloat() * (max - min) + min;
     }
 
+    public static double nextDouble(Random driver, double min, double max) {
+        return driver.nextFloat() * (max - min) + min;
+    }
+
     public static boolean nextBoolean(Random driver) {
         return driver.nextFloat() > 0.5f;
     }
