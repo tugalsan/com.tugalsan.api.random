@@ -43,8 +43,13 @@ public class TS_RandomUtils {
         return TGS_RandomDriverUtils.nextRect(driver(), new TGS_ShapeRectangle(0, 0, boundaryRect.width, boundaryRect.height));
     }
 
+    @Deprecated //FLOAT IS YOUR ENEMY!
     public static float nextFloat(float min, float max) {
         return TGS_RandomDriverUtils.nextFloat(driver(), min, max);
+    }
+
+    public static double nextDouble(double min, double max) {
+        return TGS_RandomDriverUtils.nextDouble(driver(), min, max);
     }
 
     public static boolean nextBoolean() {
