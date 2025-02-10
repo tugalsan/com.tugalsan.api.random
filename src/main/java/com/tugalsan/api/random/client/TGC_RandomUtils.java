@@ -1,12 +1,12 @@
 package com.tugalsan.api.random.client;
 
-import com.tugalsan.api.unsafe.client.TGS_UnSafe;
+import com.tugalsan.api.function.client.maythrow.uncheckedexceptions.TGS_FuncMTUCEUtils;
 
 public class TGC_RandomUtils {
 
     @Deprecated //NOT IMPLEMENTED
     public static String getUUIDType5(String seed) {
-        return TGS_UnSafe.thrw(TGC_RandomUtils.class.getSimpleName(), "getUUIDType5", "not implemented");
+        return TGS_FuncMTUCEUtils.thrw(TGC_RandomUtils.class.getSimpleName(), "getUUIDType5", "not implemented");
     }
 
     public native static String nextUUIDType4() /*-{

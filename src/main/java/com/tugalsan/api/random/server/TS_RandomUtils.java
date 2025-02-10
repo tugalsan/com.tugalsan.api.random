@@ -1,10 +1,11 @@
 package com.tugalsan.api.random.server;
 
+import com.tugalsan.api.function.client.maythrow.checkedexceptions.TGS_FuncMTCEUtils;
 import com.tugalsan.api.random.server.core.TS_UUIDType5Utils;
 import com.tugalsan.api.random.client.core.TGS_RandomDriverUtils;
 import com.tugalsan.api.hex.client.TGS_HexUtils;
 import com.tugalsan.api.shape.client.*;
-import com.tugalsan.api.unsafe.client.*;
+
 import java.security.MessageDigest;
 import java.util.*;
 import java.util.concurrent.*;
@@ -16,7 +17,7 @@ public class TS_RandomUtils {
     }
 
     public static String nextUUIDType4() {
-        return TGS_UnSafe.call(() -> {
+        return TGS_FuncMTCEUtils.call(() -> {
             var salt = MessageDigest.getInstance("SHA-256");
             salt.update(UUID.randomUUID().toString().getBytes("UTF-8"));
             return TGS_HexUtils.toHex(salt.digest());

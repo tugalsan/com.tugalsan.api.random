@@ -1,6 +1,7 @@
 package com.tugalsan.api.random.server.core;
 
-import com.tugalsan.api.unsafe.client.*;
+import com.tugalsan.api.function.client.maythrow.checkedexceptions.TGS_FuncMTCEUtils;
+import com.tugalsan.api.function.client.maythrow.uncheckedexceptions.TGS_FuncMTUCEUtils;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.util.Objects;
@@ -22,7 +23,6 @@ public class TS_UUIDType5Utils {
 //    private static final UUID getNAMESPACE_DNS() {
 //        return UUID.fromString("6ba7b810-9dad-11d1-80b4-00c04fd430c8");
 //    }
-
     private static UUID getNAMESPACE_URL() {
         return UUID.fromString("6ba7b811-9dad-11d1-80b4-00c04fd430c8");
     }
@@ -34,13 +34,12 @@ public class TS_UUIDType5Utils {
 //    private static final UUID getNAMESPACE_X500() {
 //        return UUID.fromString("6ba7b814-9dad-11d1-80b4-00c04fd430c8");
 //    }
-
     private static UUID nameUUIDFromNamespaceAndString(UUID namespace, CharSequence name) {
         return nameUUIDFromNamespaceAndBytes(namespace, Objects.requireNonNull(name.toString(), "name == null").getBytes(StandardCharsets.UTF_8));
     }
 
     private static UUID nameUUIDFromNamespaceAndBytes(UUID namespace, byte[] name) {
-        return TGS_UnSafe.call(() -> {
+        return TGS_FuncMTCEUtils.call(() -> {
             var md = MessageDigest.getInstance("SHA-1");
             md.update(toBytes(Objects.requireNonNull(namespace, "namespace is null")));
             md.update(Objects.requireNonNull(name, "name is null"));
@@ -51,7 +50,7 @@ public class TS_UUIDType5Utils {
             sha1Bytes[8] |= 0x80;// set to IETF variant 
             return fromBytes(sha1Bytes);
         }, e -> {
-            return TGS_UnSafe.thrw(TS_UUIDType5Utils.class.getSimpleName(), "nameUUIDFromNamespaceAndBytes", "SHA-1 not supported");
+            return TGS_FuncMTUCEUtils.thrw(TS_UUIDType5Utils.class.getSimpleName(), "nameUUIDFromNamespaceAndBytes", "SHA-1 not supported");
         });
     }
 
