@@ -1,11 +1,9 @@
 package com.tugalsan.api.random.server.core;
 
-import com.tugalsan.api.function.client.maythrowexceptions.checked.TGS_FuncMTCUtils;
-import com.tugalsan.api.function.client.maythrowexceptions.unchecked.TGS_FuncMTUUtils;
-import java.nio.charset.StandardCharsets;
-import java.security.MessageDigest;
-import java.util.Objects;
-import java.util.UUID;
+import module com.tugalsan.api.function;
+import java.nio.charset.*;
+import java.security.*;
+import java.util.*;
 
 public class TS_UUIDType5Utils {
 
